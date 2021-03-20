@@ -1,0 +1,90 @@
+#####Terraform documentation:-
+
+#To create a provide (for example aws)
+
+provider "aws" {
+  region = "ap-south-1"
+  access_key = "AKIA4IUCI5TNSXBXNY5Q"
+  secret_key = "FnoVMIsiTmENAih9kGt5or2cnTma/GnmGZq6CxLV"
+}
+
+#To create Ec2
+
+resource "aws_instance" "instancename" {
+  ami           = "ami-fhfsjjh4jd887h489j5899" #(#ami id we should paste according to the required os)
+  instance_type = "t3.micro"
+  count         =10 #(#if u want more instances)
+  tags = {
+    Name = "Cloudinstance"
+  }
+}
+
+#Commands
+
+terraform init => it will initialise and download the provider plugins 
+terraform plan => before hand it will show the things its going to create and also shows the errors
+terraform apply => it will ceate or change the defined parameters which we describes in the code . for example creating an instance
+terraform destroy => it will destroy what ever the resources it created
+
+
+############ EXAMPLE :- created instance with ec2, security group, elastic IP, key pair
+
+provider "aws" {
+  region     = "ap-south-1"
+  access_key = "AKIAX33BFDID373U36Y3"
+  secret_key = "KCn8XlcPfhW3wJ0dNvM9pPOwRKnOKvcrMpl6TKWt"
+}
+
+
+resource "aws_instance" "myec2" {
+  ami = "ami-068d43a544160b7ef"
+  instance_type = "t3.micro"
+  key_name = "practiceterraform"
+  vpc_security_group_ids = [aws_security_group.practicesg.id]
+
+tags = {
+    Name = "Cloudinstance"
+  }
+}
+
+resource "aws_key_pair" "practicekeypair" {
+  key_name   = "practiceterraform"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDB6pw7KLkLtz6ISnzlCs3SPagaoYUYw8VQ7yTk6xVJ8jEluGW7qzwI1FPNqVbntuqbqLKcpkbKSqDx355AGHHFrleStliJKLDhNieJ+BAPUYdkKpGmAnrhBGAVno7JY3PnhKGy29dw6hwsn7B4pbWiFJYLBe3mo7W3iZAokuHSGQLjusC5JSXnVfgMr/e/BFZwQ+EHzvdbQI9cLEPek4pWTdOpcTouShKQZMGVTa6VDHj82fKG+zRI4iWLnqwh/iTK+c+JYNmiNMmNuFzlHdmCph9Wk5BrTmQTYYpYoC4d2BqYVpfxJep3kKMQ6Aas2BBi6rdxL+ni9ZMoIowEKF5iaXe+3FMxzHWE3Zqe7ccWWsfsLdHwxmHZamhwqDAGiMGO+v0/TGQ0EZeQRQifvXe7gnejupJVU2QsEe/n1NoHs0URh9GKQdawqZA6GWE9jGfuLnoDxiiNp+AHP2HiFdyW1YDPiOP2opy2/FlbzPYnSnl7M8bNy0n3A6Gu9AGK9Vk= kiransmac@kirans-MacBook-Pro.local"
+}
+
+resource "aws_eip" "practiceeip" {
+  instance = aws_instance.myec2.id
+  vpc      = true
+}
+
+resource "aws_default_vpc" "default" {
+  tags = {
+    Name = "Default VPC"
+  }
+}
+
+resource "aws_security_group" "practicesg" {
+  name        = "cloudsg"
+  description = "Allow TLS inbound traffic"
+  vpc_id      = aws_default_vpc.default.id
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "cloudsg"
+  }
+}
+########
