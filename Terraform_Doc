@@ -98,3 +98,67 @@ Lab example terraform-practice
 ###If not the third way we can directly mention with terraform plan ,.. like ,.. terraform plan -var="instancetype=t2.micro" -var="image=am-jhguyfvjhj"
 ####Anf the fouth way is by exporting the value with command => export TF_VAR_instancetype=m2.large and =>TF_VAR_image=ami-jgdjhfuyjgh (its temporary in bast if we logout of the terminal the value will dissapear, if we want in permanent we shouls store in bash)
 
+########
+
+Conditional Topic
+
+provider "aws" {
+  region     = "ap-south-1"
+  access_key = "AKIAX33BFDID43C7W4VV"
+  secret_key = "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"
+}
+
+variable instancetype {
+  type = map
+  default = {
+    "dev" = "t2.small"
+    "test"= "t2.medium"
+    "prod"= "t2.large"
+  }
+}
+
+variable image {
+  type = list
+  default = ["ami-068d43a544160b7ef","ami-0a9d27a9f4f5c0efc","ami-0d758c1134823146a"]
+
+}
+
+variable input { }
+
+resource "aws_instance" "dev" {
+  instance_type = var.instancetype ["dev"]
+  ami = var.image[0]
+  count = var.input == "dev" ? 1:0
+ ## count = var.input > "2" ? 4 : 0 ###count = var.input != "" ? var.input  :3 (when we want a perticular value we get that value ifnot we get default value for ex in this cas 3)
+
+  tags = {
+    Name = "dev-department"
+
+  }
+  
+}
+
+resource "aws_instance" "test" {
+  instance_type = var.instancetype ["test"]
+  ami = var.image[1]
+  count = var.input == "test" ? 3:0
+
+  tags = {
+    Name = "dev-department"
+
+  }
+  
+}
+
+resource "aws_instance" "prod" {
+  instance_type = var.instancetype ["prod"]
+  ami = var.image[2]
+  count = var.input == "prod" ? 6:0
+
+  tags = {
+    Name = "prod-department"
+
+  }
+  
+}
+####
