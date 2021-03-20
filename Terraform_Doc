@@ -31,8 +31,8 @@ terraform destroy => it will destroy what ever the resources it created
 
 provider "aws" {
   region     = "ap-south-1"
-  access_key = "AKIAX33BFDID373U36Y3"
-  secret_key = "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"
+  access_key = "AKekjdhfudjfcldhihfouwh"
+  secret_key = "KCn8jhdfkdsgcxlikdhiufhlshilfj"
 }
 
 
@@ -49,7 +49,7 @@ tags = {
 
 resource "aws_key_pair" "practicekeypair" {
   key_name   = "practiceterraform"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDB6pw7KLkLtz6ISnzlCs3SPagaoYUYw8VQ7yTk6xVJ8jEluGW7qzwI1FPNqVbntuqbqLKcpkbKSqDx355AGHHFrleStliJKLDhNieJ+BAPUYdkKpGmAnrhBGAVno7JY3PnhKGy29dw6hwsn7B4pbWiFJYLBe3mo7W3iZAokuHSGQLjusC5JSXnVfgMr/e/BFZwQ+EHzvdbQI9cLEPek4pWTdOpcTouShKQZMGVTa6VDHj82fKG+zRI4iWLnqwh/iTK+c+JYNmiNMmNuFzlHdmCph9Wk5BrTmQTYYpYoC4d2BqYVpfxJep3kKMQ6Aas2BBi6rdxL+ni9ZMoIowEKF5iaXe+3FMxzHWE3Zqe7ccWWsfsLdHwxmHZamhwqDAGiMGO+v0/TGQ0EZeQRQifvXe7gnejupJVU2QsEe/n1NoHs0URh9GKQdawqZA6GWE9jGfuLnoDxiiNp+AHP2HiFdyW1YDPiOP2opy2/FlbzPYnSnl7M8bNy0n3A6Gu9AGK9Vk= kiransmac@kirans-MacBook-Pro.local"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDB6pw7KLkLtz6ISnzlCs3SPagaoYUYw8VQ7yTk6xVJ8jEluGekdfhewkhdfbcdwkjhdkAGHHFrleStliJKLDhNieJ+BAPUYdkKpGmAnrhBGAVno7JY3PnhKGy29dw6hwsn7B4pbWiFJYLBe3mo7W3iZAokuHSGQLjusC5JSXnVfgMr/e/BFZwQ+EHzvdbQI9cLEPek4pWTdOpcTouShKQZMGVTa6VDHj82fKG+zRI4iWLnqwh/iTK+c+JYNmiNMmNuFzlHdmCph9Wk5BrTmQTYYpYoC4d2BqYVpfxJep3kKMQ6Aas2BBi6rdxL+ni9ZMoIowEKF5iaXe+3FMxzHWE3Zqe7ccWWsfsLdHwxmHZamhwqDAGiMGO+v0/TGQ0EZeQRQifvXe7gnejupJVU2QsEe/n1NoHs0URh9GKQdawqZA6GWE9jGfuLnoDxiiNp+AHP2HiFdyW1YDPiOP2opy2/FlbzPYnSnl7M8bNy0n3A6Gu9AGK9Vk= kiransmac@kirans-MacBook-Pro.local"
 }
 
 resource "aws_eip" "practiceeip" {
