@@ -88,3 +88,13 @@ resource "aws_security_group" "practicesg" {
   }
 }
 ########
+
+Vriables Topic
+
+Lab example terraform-practice 
+
+##If we dont mention terraform.tfvars with actual name and mentioned with some other name like demo.tfvars, it wont pickup the values. If we want with the demo.tfvars we can mention during terraform plan or apply like => terraform plan -var-file="demo.tfvars"
+## If not we can replace terraform.tfvars directly with demo.auto.tfvars
+###If not the third way we can directly mention with terraform plan ,.. like ,.. terraform plan -var="instancetype=t2.micro" -var="image=am-jhguyfvjhj"
+####Anf the fouth way is by exporting the value with command => export TF_VAR_instancetype=m2.large and =>TF_VAR_image=ami-jgdjhfuyjgh (its temporary in bast if we logout of the terminal the value will dissapear, if we want in permanent we shouls store in bash)
+
